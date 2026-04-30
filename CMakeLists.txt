@@ -8,7 +8,6 @@
 # list of conditions and the following disclaimer.
 #
 # 2. Redistributions in binary form must reproduce the above copyright notice,
-# this list of conditions and the following disclaimer in the documentation
 # and/or other materials provided with the distribution.
 #
 # 3. Neither the name of the copyright holder nor the names of its
@@ -173,7 +172,10 @@ set(CUTLASS_ENABLE_SELF_CONTAINED_INCLUDES_CHECK ON CACHE BOOL "Enable CUTLASS c
 
 set(CUTLASS_NVCC_ARCHS_SUPPORTED "")
 if (CUDA_VERSION VERSION_GREATER_EQUAL 11.4)
-  list(APPEND CUTLASS_NVCC_ARCHS_SUPPORTED 70 72 75 80 86 87)
+  list(APPEND CUTLASS_NVCC_ARCHS_SUPPORTED 75 80 86 87)
+endif()
+if (CUDA_VERSION VERSION_GREATER_EQUAL 11.4 AND CUDA_VERSION VERSION_LESS 13.0)
+  list(APPEND CUTLASS_NVCC_ARCHS_SUPPORTED 70 72)
 endif()
 if (CUDA_VERSION VERSION_GREATER_EQUAL 11.8)
   list(APPEND CUTLASS_NVCC_ARCHS_SUPPORTED 89 90)
