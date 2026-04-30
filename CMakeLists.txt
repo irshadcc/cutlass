@@ -1210,3 +1210,25 @@ install(
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/NvidiaCutlassPackageConfig.cmake)
 
+## ========= Example Executable Target (irs)=========
+add_executable(kernel_runner main.cu)
+set(CUTLASS_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
+
+target_include_directories(kernel_runner PRIVATE
+    ${CUTLASS_DIR}/include
+    ${CUTLASS_DIR}/tools/util/include
+)
+# 3. Required Compiler Flags
+target_compile_options(kernel_runner PRIVATE
+    $<$<COMPILE_LANGUAGE:CUDA>:
+        --expt-relaxed-constexpr
+        --expt-extended-lambda
+    >
+)
+
+# Set C++ standard required by CUTLASS
+set_target_properties(kernel_runner PROPERTIES
+    CXX_STANDARD 17
+    CUDA_STANDARD 17
+)
+## ===============================================

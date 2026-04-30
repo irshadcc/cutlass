@@ -1,0 +1,39 @@
+CompileFlags:
+  Compiler: /usr/local/cuda/bin/nvcc
+  Add:
+    - --cuda-path=/usr/local/cuda
+    - --cuda-gpu-arch=sm_120a
+    - -I/usr/local/cuda/include
+    - "-xcuda"
+report all errors
+    - "-ferror-limit=0"
+    - --cuda-gpu-arch=sm_120a
+    - --std=c++17
+    - "-D__INTELLISENSE__"
+    - "-D__CLANGD__"
+    - "-D_LIBCUDACXX_STD_VER=13"
+    - "-D__CUDACC_VER_MAJOR__=1"
+    - "-D__CUDACC_VER_MINOR__=115"
+    - "-D__CUDA_ARCH__=1200"
+    - "-Wno-invalid-constexpr"
+  Remove:
+strip CUDA fatbin args
+    - "-Xfatbin*"
+strip CUDA arch flags
+    - "-gencode*"
+    - "--generate-code*"
+strip CUDA flags unknown to clang
+    - "-ccbin*"
+    - "--compiler-options*"
+    - "--expt-extended-lambda"
+    - "--expt-relaxed-constexpr"
+    - "-forward-unknown-to-host-compiler"
+    - "-Werror=cross-execution-space-call"
+Hover:
+  ShowAKA: No
+InlayHints:
+  Enabled: No
+Diagnostics:
+  Suppress:
+    - "variadic_device_fn"
+    - "attributes_not_allowed"
